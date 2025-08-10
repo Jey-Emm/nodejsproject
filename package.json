@@ -1,0 +1,20 @@
+{
+  "name": "nodejsproject",
+  "author": "Jey-emm",
+  "version": "1.0.0",
+  "description": "node.js projects from beginner",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Jey-Emm/nodejsproject.git"
+  },
+  "keywords": [],
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Jey-Emm/nodejsproject/issues"
+  },
+  "homepage": "https://github.com/Jey-Emm/nodejsproject#readme"
+}
