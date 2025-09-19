@@ -1,2 +1,4 @@
     # Ignore all files ending with .log
     *.env
+
+    node_modules/.env
