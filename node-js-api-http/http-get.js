@@ -15,18 +15,18 @@ const server = http.createServer((req,res) =>{
     res.setHeader('Access-Control-Allow-Methods', 'GET');
     res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
 
-    if(method === "GET" && pathValue === '/students'){
+        if(method === "GET" && pathValue === '/students'){
         res.writeHead(200, {'Content-Type':'application/json'});
         res.write(JSON.stringify(students));
         res.end();
-    }
-    else{
+        }
+        else{
         res.writeHead(500, {'Content-Type':'application/json'});
         let errorResponse = {"errorcode":"500", "description":"Internal Server Error"};
-        res.write(JSON.stringify());
+        res.write(JSON.stringify(errorResponse));
         res.end();
-    }
-})  
+        }
+})
 
 const portValue = 5002;
 server.listen(5002, () => {
