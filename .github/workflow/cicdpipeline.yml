@@ -1,10 +1,11 @@
 name: Continues Integration and Continues Deployment Pipeline
 
 on:
-    workflow_dispatch:
-    push:
-        branches:
+  push:
+      branches:
           - express-js-api-basic 
+  workflow_dispatch:
+
     jobs:
       deploy:
         runs-on: ubuntu-latest 
