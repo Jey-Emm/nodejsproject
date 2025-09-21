@@ -7,6 +7,7 @@ on:
 
 jobs:
       deploy:
+        environment: AWS-MYSQL-INSTANCE-FREE-TIER-ENV # explicitly declare environment to use the secret keys inside it
         runs-on: ubuntu-latest # or a self-hosted runner if preferred
 
         steps:
@@ -20,7 +21,7 @@ jobs:
 
         - name: Install dependencies
           run: npm install
-          
+
         - name: Deploy to EC2
           uses: appleboy/ssh-action@master
           with:
