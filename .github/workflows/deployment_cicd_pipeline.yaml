@@ -20,10 +20,7 @@ jobs:
 
         - name: Install dependencies
           run: npm install
-
-        - name: Build project (if needed)
-          run: npm run build # if you have a build step
-
+          
         - name: Deploy to EC2
           uses: appleboy/ssh-action@master
           with:
