@@ -1,0 +1,40 @@
+    name: Deploy Node.js API to EC2
+
+    on:
+      push:
+        branches:
+          - express-js-api-basic # or your main branch
+      workflow_dispatch:
+    jobs:
+      deploy:
+        runs-on: ubuntu-latest # or a self-hosted runner if preferred
+
+        steps:
+        - name: Checkout code
+          uses: actions/checkout@v4
+
+        - name: Set up Node.js
+          uses: actions/setup-node@v4
+          with:
+            node-version: '18' # or your desired Node.js version
+
+        - name: Install dependencies
+          run: npm install
+
+        - name: Build project (if needed)
+          run: npm run build # if you have a build step
+
+        - name: Deploy to EC2
+          uses: appleboy/ssh-action@master
+          with:
+            host: ${{ secrets.AWS_EC2_HOST_FREE_TIER }}
+            username: ${{ secrets.AWS_EC2_INSTANCE_USERNAME_FREE_TIER }} # or your EC2 instance username
+            key: ${{ secrets.AWS_EC2_SSH_PRIVATE_KEY_FREE_TIER }}
+            script: |
+              cd /var/www/express-js-api-basic
+              git pull origin express-js-api-basic
+              npm install
+              pm2 start index.js --name express-js-api-basic
+
+              
+              
