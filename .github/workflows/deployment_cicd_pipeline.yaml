@@ -33,7 +33,7 @@ jobs:
               git config --global --add safe.directory /var/www/express-js-api-basic
               git config --global credential.helper store
               git pull origin main
-              cd /var/www/express-js-api-basic
+              cd /var/www/express-js-api-basic/express-js-api-basic
               /usr/bin/npm install
               /usr/local/bin/pm2 start index.js --name express-js-api-basic
 
