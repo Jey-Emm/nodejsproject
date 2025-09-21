@@ -1,10 +1,10 @@
-    name: Deploy Node.js API to EC2
-
-    on:
-      push:
+name: Deploy Node.js API to EC2
+on:
+    push:
         branches:
           - express-js-api-basic # or your main branch
-      workflow_dispatch:
+    workflow_dispatch:
+
     jobs:
       deploy:
         runs-on: ubuntu-latest # or a self-hosted runner if preferred
