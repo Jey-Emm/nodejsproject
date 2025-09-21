@@ -1,6 +1,7 @@
 name: Continues Integration and Continues Deployment Pipeline
 
 on:
+    workflow_dispatch:
     push:
         branches:
           - express-js-api-basic 
