@@ -31,6 +31,7 @@ jobs:
             script: |
               cd /var/www/express-js-api-basic # or your application directory on EC2
               git config --global --add safe.directory /var/www/express-js-api-basic
+              git config --global credential.helper store
               git pull origin main
               npm install
               pm2 restart your-app-name # or pm2 start app.js --name  express-js-api-basic if first time
