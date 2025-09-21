@@ -5,7 +5,7 @@ on:
           - express-js-api-basic # or your main branch
     workflow_dispatch:
 
-    jobs:
+jobs:
       deploy:
         runs-on: ubuntu-latest # or a self-hosted runner if preferred
 
