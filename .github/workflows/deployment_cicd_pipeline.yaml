@@ -30,6 +30,7 @@ jobs:
             key: ${{ secrets.AWS_EC2_SSH_PRIVATE_KEY_FREE_TIER }}
             script: |
               cd /var/www/express-js-api-basic # or your application directory on EC2
+              git config --global --add safe.directory /var/www/express-js-api-basic
               git pull origin main
               npm install
               pm2 restart your-app-name # or pm2 start app.js --name  express-js-api-basic if first time
