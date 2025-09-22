@@ -60,7 +60,7 @@ jobs:
               # Delete the temporary artifact
               rm /tmp/release.tar.gz
 
-              # Install dependencies and restart the app with PM2
+              # Install dependencies and start or restart the app with PM2
               npm install
-              pm2 restart express-js-student-api
+              pm2 startOrReload index.js
               
