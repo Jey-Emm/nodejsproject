@@ -22,7 +22,7 @@ jobs:
         - name: Create build artifact 
           run: |
             cd ${{ github.workspace }}
-            tar -czf release.tar.gz 
+            tar -czf release.tar.gz .
 
         - name: Copy artifact to EC2 Debian Temp Directory
           uses: appleboy/scp-action@master
