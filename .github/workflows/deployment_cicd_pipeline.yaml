@@ -38,8 +38,15 @@ jobs:
               cd /var/www/express-js-student-api
               # Optional: Clear old files to ensure a clean deployment
               rm -rf *
+
+              # The tar command will read from stdin
+              tar -xzf - -C /var/www/your_app
+              # This pipes the tarball to the SSH session
+              stdin: tar -czf - .
+
               # Download and extract the artifact
-              tar -xzf /tmp/release.tar.gz
+              # tar -xzf /tmp/release.tar.gz
+
               # Install production dependencies
               npm install
               # Start/reload the app with PM2
