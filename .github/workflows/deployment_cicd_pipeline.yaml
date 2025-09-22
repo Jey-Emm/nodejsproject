@@ -24,8 +24,10 @@ jobs:
 
         - name: Create build artifact
           run: |
-            tar --exclude='.git' --exclude='release.tar.gz' -czf release.tar.gz .
-
+            mkdir temp_build
+            rsync -a --exclude 'temp_build' . temp_build/
+            cd temp_build
+            tar -czf ../release.tar.gz .
         - name: Deploy to EC2 Nginx
           uses: appleboy/ssh-action@master
           with:
