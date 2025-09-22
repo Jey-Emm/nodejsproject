@@ -9,6 +9,8 @@ export async function CheckCredentials (req, res, next) {
     if(username === '' || password === ''){
         console.log('Missing Username or Password is missing');
     }
+    
+    console.log(`Username is: ${username} and Passowrd is: ${password}`);
     const encryptedValue = encrypt(password);
     let connection = '';
 
