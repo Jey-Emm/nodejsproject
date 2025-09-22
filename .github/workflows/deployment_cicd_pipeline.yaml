@@ -28,6 +28,9 @@ jobs:
             source: "release.tar.gz"
             target: "/tmp"
 
+        - name: Debug - List files before tar
+          run: ls -la
+          
         - name: Deploy to Nginx Instance via SSH 
           uses: appleboy/ssh-action@master
           with:
