@@ -62,4 +62,4 @@ jobs:
 
               # Install dependencies and start or restart the app with PM2
               npm install
-              pm2 start /var/www/express-js-student-api/express-js-api-basic/index.js --name express-js-student-api
+              pm2 startOrReload /var/www/express-js-student-api/express-js-api-basic/index.js --name express-js-student-api
