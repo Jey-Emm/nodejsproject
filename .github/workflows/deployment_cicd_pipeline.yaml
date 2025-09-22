@@ -27,6 +27,7 @@ jobs:
     
             rsync -a --exclude 'temp_artifact' . temp_artifact/
     
+
             # Run the tar command on the stable copy of your files
             tar -czf release.tar.gz -C temp_artifact .
 
@@ -51,6 +52,8 @@ jobs:
               cd /var/www/express-js-student-api
               # Optional: Clear old files to ensure a clean deployment
               rm -rf *
+
+              sudo chown -R $USER:$USER .
               # Extract the artifact from /tmp
               tar -xzf /tmp/release.tar.gz
             
