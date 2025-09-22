@@ -19,10 +19,10 @@ jobs:
           with:
             node-version: '18.x' # or your desired Node.js version
 
-        - name: Debug - List files before tar
-          run: ls -la
-          
-        - name: Build artifact and copy to EC2 Debian Temp Directory
+        - name: Create build artifact 
+          run: tar -czf release.tar.gz 
+
+        - name: Copy artifact to EC2 Debian Temp Directory
           uses: appleboy/scp-action@master
           with:
             host: ${{ secrets.AWS_EC2_HOST_FREE_TIER }}
