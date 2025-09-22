@@ -22,7 +22,13 @@ jobs:
         - name: Create build artifact 
           run: |
             cd ${{ github.workspace }}
-            tar --exclude='node_modules' --exclude='.git' --exclude='release.tar.gz' -czf release.tar.gz .
+            # Create a temporary directory in the runner's workspace
+            mkdir temp_artifact
+    
+            rsync -a --exclude 'temp_artifact' . temp_artifact/
+    
+            # Run the tar command on the stable copy of your files
+            tar -czf release.tar.gz -C temp_artifact .
 
         - name: Copy artifact to EC2 Debian Temp Directory
           uses: appleboy/scp-action@master
