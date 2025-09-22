@@ -1,4 +1,4 @@
-name: Deploy Node.js API to EC2
+name: Deploy Express JS Student API to EC2 Nginx Instance
 on:
     push:
         branches:
@@ -17,12 +17,12 @@ jobs:
         - name: Set up Node.js
           uses: actions/setup-node@v4
           with:
-            node-version: '18' # or your desired Node.js version
+            node-version: '18.x' # or your desired Node.js version
 
         - name: Install dependencies
           run: npm install
 
-        - name: Deploy to EC2
+        - name: Deploy to EC2 Nginx
           uses: appleboy/ssh-action@master
           with:
             host: ${{ secrets.AWS_EC2_HOST_FREE_TIER }}
