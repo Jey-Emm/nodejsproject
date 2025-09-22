@@ -54,6 +54,7 @@ jobs:
               echo "ENCRYPTION_KEY=${{ secrets.ENCRYPTION_KEY }}" > .env
               echo "ENCRYPTION_IV=${{ secrets.ENCRYPTION_IV }}" >> .env
               echo "ALGORITHM=${{ secrets.ALGORITHM }}" >> .env
+              echo "PORT=3000" >> .env
 
               # Optional: Clear old files to ensure a clean deployment
               rm -rf *
