@@ -20,7 +20,7 @@ jobs:
             node-version: '18.x' # or your desired Node.js version
 
         - name: Create build artifact 
-          run: 
+          run: |
             cd ${{ github.workspace }}
             tar -czf release.tar.gz 
 
