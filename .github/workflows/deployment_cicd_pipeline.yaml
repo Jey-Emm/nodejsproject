@@ -50,6 +50,11 @@ jobs:
             key: ${{ secrets.AWS_EC2_SSH_PRIVATE_KEY_FREE_TIER }}
             script: |
               cd /var/www/express-js-student-api
+
+              echo "ENCRYPTION_KEY=${{ secrets.ENCRYPTION_KEY }}" > .env
+              echo "ENCRYPTION_IV=${{ secrets.ENCRYPTION_IV }}" >> .env
+              echo "ALGORITHM=${{ secrets.ALGORITHM }}" >> .env
+
               # Optional: Clear old files to ensure a clean deployment
               rm -rf *
 
