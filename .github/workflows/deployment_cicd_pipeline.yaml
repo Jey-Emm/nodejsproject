@@ -41,7 +41,7 @@ jobs:
               # Download and extract the artifact
               tar -xzf /tmp/release.tar.gz
               # Install production dependencies
-              npm install --production
+              npm install
               # Start/reload the app with PM2
-              pm2 startOrReload index.js --only your_app
+              pm2 startOrReload index.js --only express-js-api-basic
               
