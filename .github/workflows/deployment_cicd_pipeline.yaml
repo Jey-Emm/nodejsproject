@@ -19,6 +19,9 @@ jobs:
           with:
             node-version: '18.x' # or your desired Node.js version
 
+        - name: Debug - List files before tar
+          run: ls -la
+          
         - name: Build artifact and copy to EC2 Debian Temp Directory
           uses: appleboy/scp-action@master
           with:
@@ -28,9 +31,8 @@ jobs:
             source: "release.tar.gz"
             target: "/tmp"
 
-        - name: Debug - List files before tar
-          run: ls -la
-          
+        
+
         - name: Deploy to Nginx Instance via SSH 
           uses: appleboy/ssh-action@master
           with:
