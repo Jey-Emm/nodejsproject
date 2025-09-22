@@ -23,8 +23,16 @@ jobs:
           run: npm install
 
         - name: Create build artifact
-          run: tar -czf release.tar.gz .
-
+          run: |
+            # Create a temporary directory and copy files into it
+            mkdir temp_build
+            cp -r ./* temp_build/
+          
+            # Change into the temporary directory
+            cd temp_build
+          
+            # Create the tarball from the stable files
+            tar -czf ../release.tar.gz .
 
         - name: Deploy to EC2 Nginx
           uses: appleboy/ssh-action@master
