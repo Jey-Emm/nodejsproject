@@ -22,6 +22,10 @@ jobs:
         - name: Install dependencies
           run: npm install
 
+        - name: Create build artifact
+          run: tar -czf release.tar.gz .
+
+
         - name: Deploy to EC2 Nginx
           uses: appleboy/ssh-action@master
           with:
@@ -29,13 +33,13 @@ jobs:
             username: ${{ secrets.AWS_EC2_INSTANCE_USERNAME_FREE_TIER }} # or your EC2 instance username
             key: ${{ secrets.AWS_EC2_SSH_PRIVATE_KEY_FREE_TIER }}
             script: |
-              
-              git config --global --add safe.directory /var/www/express-js-api-basic
-              git config --global credential.helper store
-              git pull origin main
-              cd /var/www/express-js-api-basic/express-js-api-basic
-              /usr/bin/npm install
-              /usr/local/bin/pm2 start index.js --name express-js-api-basic
-
-              
+              cd /var/www/express-js-student-api
+              # Optional: Clear old files to ensure a clean deployment
+              rm -rf *
+              # Download and extract the artifact
+              tar -xzf /tmp/release.tar.gz
+              # Install production dependencies
+              npm install --production
+              # Start/reload the app with PM2
+              pm2 startOrReload index.js --only your_app
               
