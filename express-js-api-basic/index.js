@@ -11,9 +11,10 @@ const app = express();
 //use default json parser
 app.use(express.json());
 
+const temp_port = process.env.API_PORT || 3000;
 //initialize port for the server to listen
-app.listen(process.env.API_PORT, () => {
-    console.log(`Server is running in port ${process.env.API_PORT}`);
+app.listen(temp_port, () => {
+    console.log(`Server is running in port ${temp_port}`);
 });
 
 
