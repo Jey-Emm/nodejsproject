@@ -19,16 +19,16 @@ jobs:
           with:
             node-version: '18.x' # or your desired Node.js version
 
-        - name: Install dependencies
-          run: npm install
+        - name: Build artifact and copy to EC2 Debian Temp Directory
+          uses: appleboy/scp-action@master
+          with:
+            host: ${{ secrets.AWS_EC2_HOST_FREE_TIER }}
+            username: ${{ secrets.AWS_EC2_INSTANCE_USERNAME_FREE_TIER }}
+            key: ${{ secrets.AWS_EC2_SSH_PRIVATE_KEY_FREE_TIER }}
+            source: "release.tar.gz"
+            target: "/tmp"
 
-        - name: Create build artifact
-          run: |
-            mkdir temp_build
-            rsync -a --exclude 'temp_build' . temp_build/
-            cd temp_build
-            tar -czf ../release.tar.gz .
-        - name: Deploy to EC2 Nginx
+        - name: Deploy to Nginx Instance via SSH 
           uses: appleboy/ssh-action@master
           with:
             host: ${{ secrets.AWS_EC2_HOST_FREE_TIER }}
@@ -38,17 +38,13 @@ jobs:
               cd /var/www/express-js-student-api
               # Optional: Clear old files to ensure a clean deployment
               rm -rf *
+              # Extract the artifact from /tmp
+              tar -xzf /tmp/release.tar.gz
+            
+              # Delete the temporary artifact
+              rm /tmp/release.tar.gz
 
-              # The tar command will read from stdin
-              tar -xzf - -C /var/www/your_app
-              # This pipes the tarball to the SSH session
-              stdin: tar -czf - .
-
-              # Download and extract the artifact
-              # tar -xzf /tmp/release.tar.gz
-
-              # Install production dependencies
+              # Install dependencies and restart the app with PM2
               npm install
-              # Start/reload the app with PM2
-              pm2 startOrReload index.js --only express-js-api-basic
+              pm2 restart express-js-student-api
               
