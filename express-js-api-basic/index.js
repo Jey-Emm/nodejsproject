@@ -15,6 +15,13 @@ app.use((req, res, next) => {
 //use default json parser
 app.use(express.json());
 
+const temp_port = process.env.API_PORT;
+//initialize port for the server to listen
+app.listen(temp_port, () => {
+    console.log(`Server is running in port ${temp_port}`);
+    console.log(`ENCRYPTION_KEY: ${process.env.ENCRYPTION_KEY} , ENCRYPTION_IV: ${process.env.ENCRYPTION_IV} , ALGO: ${process.env.ALGORITHM}`);
+});
+
 //authenticate route consists of "/" route, a middleware (CheckCredentials)
 app.post("/authenticate", CheckCredentials, async (req,res) => {
 
@@ -122,9 +129,3 @@ app.get("/GetStudentInfo/:id", async (req, res) => {
 })
 
 
-const temp_port = process.env.API_PORT;
-//initialize port for the server to listen
-app.listen(temp_port, () => {
-    console.log(`Server is running in port ${temp_port}`);
-    console.log(`ENCRYPTION_KEY: ${process.env.ENCRYPTION_KEY} , ENCRYPTION_IV: ${process.env.ENCRYPTION_IV} , ALGO: ${process.env.ALGORITHM}`);
-});
