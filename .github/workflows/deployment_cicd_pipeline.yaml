@@ -71,6 +71,6 @@ jobs:
               echo "ALGORITHM=${{ secrets.ALGORITHM }}" >> .env
               echo "API_PORT=${{ secrets.STUDENT_API_PORT }}" >> .env
 
-              pm2 stop express-js-student-api
               pm2 save
-              pm2 startOrReload /var/www/express-js-student-api/express-js-api-basic/index.js --name express-js-student-api --watch
+              pm2 stop express-js-student-api
+              pm2 start /var/www/express-js-student-api/express-js-api-basic/index.js --name express-js-student-api --watch
