@@ -1,0 +1,38 @@
+name: Deploy Express JS Student API to EC2 Nginx Instance
+on:
+    push:
+        branches:
+          - express-js-api-basic # or your main branch
+    workflow_dispatch:
+
+jobs:
+      deploy:
+        environment: AWS-MYSQL-INSTANCE-FREE-TIER-ENV # explicitly declare environment to use the secret keys inside it
+        runs-on: ubuntu-latest # or a self-hosted runner if preferred
+
+        steps:
+        - name: Checkout code
+          uses: actions/checkout@v4
+
+        - name: Set up Node.js
+          uses: actions/setup-node@v4
+          with:
+            node-version: '18.x' # or your desired Node.js version
+
+        - name: Install dependencies
+          run: npm install
+
+        - name: Deploy to EC2 Nginx
+          uses: appleboy/ssh-action@master
+          with:
+            host: ${{ secrets.AWS_EC2_HOST_FREE_TIER }}
+            username: ${{ secrets.AWS_EC2_INSTANCE_USERNAME_FREE_TIER }} # or your EC2 instance username
+            key: ${{ secrets.AWS_EC2_SSH_PRIVATE_KEY_FREE_TIER }}
+            script: |
+              
+              git config --global --add safe.directory /var/www/express-js-student-api
+              git config --global credential.helper store
+              git pull origin express-js-api-basic
+              cd /var/www/express-js-student-api/express-js-api-basic
+              /usr/bin/npm install
+              /usr/local/bin/pm2 start index.js --name express-js-api-basic

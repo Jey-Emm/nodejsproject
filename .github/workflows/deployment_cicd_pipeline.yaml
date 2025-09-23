@@ -51,11 +51,6 @@ jobs:
             script: |
               cd /var/www/express-js-student-api
 
-              echo "ENCRYPTION_KEY=${{ secrets.ENCRYPTION_KEY }}" > .env
-              echo "ENCRYPTION_IV=${{ secrets.ENCRYPTION_IV }}" >> .env
-              echo "ALGORITHM=${{ secrets.ALGORITHM }}" >> .env
-              echo "PORT=3000" >> .env
-
               # Optional: Clear old files to ensure a clean deployment
               rm -rf *
 
@@ -68,5 +63,12 @@ jobs:
 
               # Install dependencies and start or restart the app with PM2
               npm install
+
+              cd /var/www/express-js-student-api/express-js-api-basic
+
+              echo "ENCRYPTION_KEY=${{ secrets.ENCRYPTION_KEY }}" > .env
+              echo "ENCRYPTION_IV=${{ secrets.ENCRYPTION_IV }}" >> .env
+              echo "ALGORITHM=${{ secrets.ALGORITHM }}" >> .env
+
               pm2 stop express-js-student-api
               pm2 start /var/www/express-js-student-api/express-js-api-basic/index.js --name express-js-student-api
