@@ -8,6 +8,10 @@ import { error_handler,success_request_handler } from "./model/error-model.js";
 //create express server
 const app = express();
 
+app.use((req, res, next) => {
+  console.log(`Incoming request: ${req.method} ${req.originalUrl}`);
+  next();
+});
 //use default json parser
 app.use(express.json());
 
