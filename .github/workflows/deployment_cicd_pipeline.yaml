@@ -52,7 +52,7 @@ jobs:
               cd /var/www/express-js-student-api
 
               # Optional: Clear old files to ensure a clean deployment
-              rm -rf *
+              ls -A | grep -v 'node_modules' | grep -v 'express-js-api-basic' | xargs rm -rf
 
               sudo chown -R $USER:$USER .
               # Extract the artifact from /tmp
