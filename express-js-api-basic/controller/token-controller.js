@@ -2,8 +2,9 @@ import crypto from 'crypto'
 import 'dotenv/config.js';
 import { error_handler } from '../model/error-model.js';
 
-const token_length = process.env.TOKEN_LENGTH;
+const token_length = 500;// you can set this using .env (process.env.TOKEN_LENGTH;)
 
+//export function that create a token
 export function GenerateToken(){
 
     try {

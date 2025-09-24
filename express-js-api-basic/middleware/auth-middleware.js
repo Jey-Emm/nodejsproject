@@ -3,6 +3,8 @@ import 'dotenv/config.js';
 import { DBConnection } from '../controller/db-controller.js';
 import { encrypt } from '../transformation/crypt.js';
 
+
+//asynchronous function that will check the requested credentials
 export async function CheckCredentials (req, res, next) {
 
     const {username,password} = req.body;
@@ -14,13 +16,17 @@ export async function CheckCredentials (req, res, next) {
     const encryptedValue = encrypt(password);
     let connection = '';
 
-    connection = await DBConnection('authmiddleware');
+    //initiate database connection
+    connection = await DBConnection();
     
+    //prepare the sql statement
     const sql_str = 'SELECT DISTINCT T_U.USERID as ID FROM TBL_USERS T_U INNER JOIN TBL_USER_ROLES T_U_R ' + 
                     'ON T_U.USERID = T_U_R.USERID WHERE T_U.USERNAME = ? AND T_U.USERPASSWORD = ? AND T_U_R.ISACTIVE = ?'
     
     try {
+        //execute the sql
         const [rows] = await connection.query(sql_str, [username,encryptedValue, 1]);
+        //identify the existince of record by checking the row count
         if(rows.length > 0){
             //res.locals = res.locals || {};
             res.locals.userid = rows[0];
