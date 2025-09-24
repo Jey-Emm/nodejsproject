@@ -70,6 +70,11 @@ jobs:
               echo "ENCRYPTION_IV=${{ secrets.ENCRYPTION_IV }}" >> .env
               echo "ALGORITHM=${{ secrets.ALGORITHM }}" >> .env
               echo "API_PORT=${{ secrets.STUDENT_API_PORT }}" >> .env
+              echo "DATABASE_NAME=${{ secrets.DATABASE_NAME }}" >> .env
+              echo "DATABASE_HOST=${{ secrets.DATABASE_HOST }}" >> .env
+              echo "DATABASE_UNAME=${{ secrets.DATABASE_UNAME }}" >> .env
+              echo "DATABASE_PWORD=${{ secrets.DATABASE_PWORD }}" >> .env
+              echo "DATABASE_PORT=${{ secrets.DATABASE_PORT }}" >> .env
 
               pm2 save
               pm2 stop express-js-student-api
