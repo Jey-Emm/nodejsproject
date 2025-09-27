@@ -48,9 +48,11 @@ app.post("/authenticate", CheckCredentials, async (req,res) => {
    
    //assign values for response using key value pair
    const responseJson = {
+        userid: token_data.requestedby,
         token: token_data.token,
         requested_date_time: token_data.created_date_time,
         expired_by: token_data.expired_by
+        
     }
 
     //sql command for inserting tokens to table
@@ -109,7 +111,7 @@ app.get("/GetStudentInfo/:id", async (req, res) => {
                         res.status(200).send(success_request_handler(std_rows[0], false));
                     }
                     else {
-                        res.status(200).send(success_request_handler(std_rows[0], true));
+                        res.status(200).send(success_request_handler("", true));
                     }
                     
                 }
@@ -128,4 +130,85 @@ app.get("/GetStudentInfo/:id", async (req, res) => {
     }
 })
 
+//Route for Getting API User Information
+app.get("/GetUserInfo/:userid", async (req, res) => {
+
+    //get the authorization details (bearer token)
+    const auth_detail = req.get("Authorization");
+    if(auth_detail && auth_detail.startsWith('Bearer ')){
+        //split bearer token string and get the token string
+        let req_token = auth_detail.split(' ')[1];
+    
+        //initialize database connection
+        let con = await DBConnection();
+        try {
+            
+            const sql_str = "SELECT TOKEN,EXPIREDBY FROM TBL_TOKENS WHERE TOKEN = ?";
+
+            //execute query and assign the results to rows
+            const [rows] = await con.query(sql_str, [req_token]);
+
+            const dt = new Date();
+
+            if(rows.length > 0){
+                //get the first row 
+                const row_result = rows[0];
+
+                //check if the token is expired
+                if(row_result.EXPIREDBY >= dt.toISOString())
+                {
+                    res.status(401).send(error_handler(401));
+                }
+                else{
+                    const sql_str_std = "SELECT TU.USERID,TU.USERNAME,TU.CREATEDDATETIME,TU.ISACTIVE AS USERSTATUS,TR.ROLENAME,TR.ROLEDESCRIPTION,TUR.ISACTIVE AS ROLESTATUS " +
+                                        "FROM TBL_USERS TU INNER JOIN TBL_USER_ROLES TUR " +
+                                        "ON TU.USERID = TUR.USERID INNER JOIN TBL_ROLES TR " +
+                                        "ON TR.ROLEID = TUR.ROLEID WHERE TU.USERID = ?"
+                    const [std_rows] = await con.query(sql_str_std, [req.params.userid]);
+                    
+                    if(std_rows.length > 0) {
+                        console.log(std_rows);
+                        const result = {};
+                        std_rows.forEach(row => {
+                            const {USERID,USERNAME,CREATEDDATETIME,USERSTATUS,ROLENAME,ROLEDESCRIPTION,ROLESTATUS} = row;
+                            
+                            if(!result[USERID]){
+                                    result[USERID] = {
+                                        userid: USERID,
+                                        username:USERNAME,
+                                        createddatetime:CREATEDDATETIME,
+                                        userisactive:USERSTATUS,
+                                        roles:[]
+                                    };
+                            }
+
+                            result[USERID].roles.push({
+                                    rolename:ROLENAME,
+                                    roledescription:ROLEDESCRIPTION,
+                                    roleisactive:ROLESTATUS
+                            });
+                        
+                        });
+                        const finalResponse = Object.values(result)[0] || {};
+
+                        res.status(200).send(success_request_handler(finalResponse, false));
+                    }
+                    else {
+                        res.status(200).send(success_request_handler("", true));
+                    }
+                }
+            }
+            else{
+                res.status(401).send(error_handler(401));
+            }
+
+        } catch (error) {
+            res.status(500).send(error_handler(500, error));
+        } finally {
+            if(con){
+                con.end();
+            }
+        }
+    }
+})
 
