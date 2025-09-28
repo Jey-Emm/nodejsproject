@@ -19,9 +19,9 @@ jobs:
         with:
           node-version: '18'
 
-      - name: Install API Dependencies
+      #- name: Install API Dependencies
         # This uses the package.json in the project root to install modules (like express)
-        run: npm install
+       # run: npm install
 
       #- name: Start Express.js API Server
         # Use 'npm start' or the command that runs your API on port 3000
