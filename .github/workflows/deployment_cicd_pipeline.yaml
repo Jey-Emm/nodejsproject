@@ -1,6 +1,6 @@
 name: Deploy Express JS Student API to EC2 Nginx Instance
 on:
-    push:
+    pull_request:
         branches:
           - express-js-api-basic # or your main branch
     workflow_dispatch:

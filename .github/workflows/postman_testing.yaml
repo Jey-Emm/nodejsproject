@@ -32,5 +32,5 @@ jobs:
           newman run express-js-api-basic/postman_test_collection/express-js-project-student-localhost.postman_collection.json \
           -e express-js-api-basic/postman_test_collection/Localhost.postman_environment.json \
           --env-var "username=$POSTMAN_USERNAME" \
-          --env-vat "password=$POSTMAN_PASSWORD"
+          --env-var "password=$POSTMAN_PASSWORD"
 
