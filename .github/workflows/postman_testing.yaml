@@ -17,7 +17,7 @@ jobs:
       - name: Install Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: '20'
+          node-version: '18'
 
       - name: Install API Dependencies
         # This uses the package.json in the project root to install modules (like express)
@@ -31,7 +31,7 @@ jobs:
       - name: Wait for API to be fully ready
         # Give the Express.js server 5-10 seconds to start listening on port 3000
         run: sleep 10 
-        
+
       - name: Install Newman
         run: npm install -g newman
 
