@@ -19,8 +19,9 @@ jobs:
         with:
           node-version: '20'
 
-      - name: Install Newman
-        run: npm install -g newman
+      - name: Install API Dependencies
+        # This uses the package.json in the project root to install modules (like express)
+        run: npm install
 
       - name: Start Express.js API Server
         # Use 'npm start' or the command that runs your API on port 3000
@@ -30,6 +31,9 @@ jobs:
       - name: Wait for API to be fully ready
         # Give the Express.js server 5-10 seconds to start listening on port 3000
         run: sleep 10 
+        
+      - name: Install Newman
+        run: npm install -g newman
 
       - name: Run Postman Collection with Newman
         env:
