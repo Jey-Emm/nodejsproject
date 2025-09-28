@@ -15,7 +15,7 @@ app.use((req, res, next) => {
 //use default json parser
 app.use(express.json());
 
-const temp_port = process.env.API_PORT;
+const temp_port = process.env.API_PORT || 3000;
 //initialize port for the server to listen
 app.listen(temp_port, () => {
     console.log(`Server is running in port ${temp_port}`);
