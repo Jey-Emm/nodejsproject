@@ -1,0 +1,36 @@
+
+name: Automated API Testing via Postman Newman
+on:
+    push:
+      branches:
+        - express-js-api-basic
+    workflow_dispatch:
+    
+jobs:
+   start_testing:
+      runs-on: ubuntu-latest
+
+      steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Install Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Install Newman
+        run: npm install -g newman
+
+      - name: Run Postman Collection with Newman
+        env:
+          # This maps your GitHub Secret to an environment variable the job can use
+          POSTMAN_USERNAME: ${{ secrets.POSTMAN_STUDENT_API_USERNAME}}
+          POSTMAN_PASSWORD: ${{ secrets.POSTMAN_STUDENT_API_PASSWORD}}
+        run: |
+          # Note: The 'env.POSTMAN_KEY' is now available inside the 'run' command.
+          newman run express-js-api-basic/postman_test_collection/express-js-project-student-localhost.postman_collection.json \
+          -e express-js-api-basic/postman_test_collection/Localhost.postman_environment.json \
+          --env-var "username=$POSTMAN_USERNAME" \
+          --env-vat "password=$POSTMAN_PASSWORD"
+

@@ -1,0 +1,463 @@
+{
+	"info": {
+		"_postman_id": "4157b636-f51a-495f-b8fc-bcb1e77ba3a3",
+		"name": "express-js-project-student localhost",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "21361434"
+	},
+	"item": [
+		{
+			"name": "Authenticate",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var moment = require('moment');\r",
+							"\r",
+							"var jsonResponse = pm.response.json();\r",
+							"\r",
+							"pm.environment.set(\"generated_token\", jsonResponse.token);\r",
+							"\r",
+							"pm.test(\"Response is JSON\", function () {\r",
+							"\t pm.response.to.be.json;\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Response has Body\", () => {\r",
+							"\tpm.response.to.be.withBody;\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Has userid property\", () => {\r",
+							"\tpm.expect(jsonResponse).to.have.property('userid');\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Has token property\", () => {\r",
+							"\tpm.expect(jsonResponse).to.have.property('token');\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Has requested_date_time property\", () => {\r",
+							"\tpm.expect(jsonResponse).to.have.property('requested_date_time');\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Has expired_by property\", () => {\r",
+							"\tpm.expect(jsonResponse).to.have.property('expired_by');\r",
+							"});\r",
+							"\r",
+							"pm.test(\"userid is number\", () => {\r",
+							"\tpm.expect(jsonResponse.userid).to.be.a('number');\r",
+							"});\r",
+							"\r",
+							"pm.test(\"token is string\", () => {\r",
+							"\tpm.expect(jsonResponse.token).to.be.a('string', \"Token is not a string\");\r",
+							"});\r",
+							"\r",
+							"pm.test(\"token has length of 500\", () => {\r",
+							"\t\r",
+							"\tpm.expect(jsonResponse.token.length).to.be.below(500, \"token length is not less than equal 500\");\t\r",
+							"});\r",
+							"\r",
+							"pm.test(\"requested_date_time is date and time\", () => {\r",
+							"\tpm.expect(moment(jsonResponse.requested_date_time).isValid()).to.be.true;\r",
+							"});\r",
+							"\r",
+							"pm.test(\"expired_by is date and time\", () => {\r",
+							"\tpm.expect(moment(jsonResponse.expired_by).isValid()).to.be.true;\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Status code is 200\",  () => {\r",
+							"\tpm.response.to.have.status(200);\r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {},
+						"requests": {}
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"\r",
+							"pm.test(\"Validate Username\", () => {\r",
+							"\t\r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {},
+						"requests": {}
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n\t\"username\":\"{{username}}\",\r\n\t\"password\":\"{{password}}\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3000/authenticate",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"authenticate"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GetStudentInfo",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var moment = require('moment');\r",
+							"\r",
+							"var jsonResponse = pm.response.json();\r",
+							"\r",
+							"pm.test(\"Response is JSON\", function () {\r",
+							"\t pm.response.to.be.json;\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Response has Body\", () => {\r",
+							"\tpm.response.to.be.withBody;\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Has STUDENTINFOID property\", () => {\r",
+							"\tpm.expect(jsonResponse.STUDENTINFOID).to.have.property('STUDENTINFOID');\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Has STUDENTINFOID property is number\", () => {\r",
+							"\tpm.expect(jsonResponse.STUDENTINFOID).to.be.a('number');\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Has STUDENTID property\", () => {\r",
+							"\tpm.expect(jsonResponse).to.have.property('STUDENTID');\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Has STUDENTID property is string\", () => {\r",
+							"\tpm.expect(jsonResponse.STUDENTID).to.be.a('string');\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Has FIRSTNAME property\", () => {\r",
+							"\tpm.expect(jsonResponse).to.have.property('FIRSTNAME');\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Has FIRSTNAME property is string\", () => {\r",
+							"\tpm.expect(jsonResponse.FIRSTNAME).to.be.a('string');\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Has MIDDLENAME property\", () => {\r",
+							"\tpm.expect(jsonResponse).to.have.property('MIDDLENAME');\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Has MIDDLENAME property is string\", () => {\r",
+							"\tpm.expect(jsonResponse.MIDDLENAME).to.be.a('string');\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Has LASTNAME property\", () => {\r",
+							"\tpm.expect(jsonResponse).to.have.property('LASTNAME');\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Has LASTNAME property is string\", () => {\r",
+							"\tpm.expect(jsonResponse.LASTNAME).to.be.a('string');\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Has SUFFIXNAME property\", () => {\r",
+							"\tpm.expect(jsonResponse).to.have.property('SUFFIXNAME');\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Has SUFFIXNAME property is string\", () => {\r",
+							"\tpm.expect(jsonResponse.SUFFIXNAME).to.be.a('string');\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Has AGE property\", () => {\r",
+							"\tpm.expect(jsonResponse).to.have.property('AGE');\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Has AGE property is number\", () => {\r",
+							"\tpm.expect(jsonResponse.AGE).to.be.a('number');\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Has BIRTHDAY property\", () => {\r",
+							"\tpm.expect(jsonResponse).to.have.property('BIRTHDAY');\r",
+							"});\r",
+							"\r",
+							"pm.test(\"BIRTHDAY property is in Date Format\", () => {\r",
+							"\tpm.expect(moment(jsonResponse.BIRTHDAY).isValid()).to.be.true;\r",
+							"\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Has ADDRESS property\", () => {\r",
+							"\tpm.expect(jsonResponse).to.have.property('ADDRESS');\r",
+							"});\r",
+							"\r",
+							"pm.test(\"ADDRESS property is string\", () => {\r",
+							"\tpm.expect(jsonResponse.ADDRESS).to.be.a('string');\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Has CONTACT property\", () => {\r",
+							"\tpm.expect(jsonResponse).to.have.property('CONTACT');\r",
+							"});\r",
+							"\r",
+							"pm.test(\"CONTACT property is string\", () => {\r",
+							"\tpm.expect(jsonResponse.CONTACT).to.be.a('string');\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Has CREATEDDATETIME property\", () => {\r",
+							"\tpm.expect(jsonResponse).to.have.property('CREATEDDATETIME');\r",
+							"});\r",
+							"\r",
+							"pm.test(\"CREATEDDATETIME property is in Date Time Format\", () => {\r",
+							"\tpm.expect(moment(jsonResponse.CREATEDDATETIME).isValid()).to.be.true;\r",
+							"\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Has UPDATEDATETIME property\", () => {\r",
+							"\tpm.expect(jsonResponse).to.have.property('UPDATEDATETIME');\r",
+							"});\r",
+							"\r",
+							"pm.test(\"UPDATEDATETIME property is in Date Time Format\", () => {\r",
+							"\tpm.expect(moment(jsonResponse.UPDATEDATETIME).isValid()).to.be.true;\r",
+							"\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Has CREATEDBY property\", () => {\r",
+							"\tpm.expect(jsonResponse).to.have.property('CREATEDBY');\r",
+							"});\r",
+							"\r",
+							"pm.test(\"CREATEDBY property is number\", () => {\r",
+							"\tpm.expect(jsonResponse.CREATEDBY).to.be.a('number');\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Has UPDATEDBY property\", () => {\r",
+							"\tpm.expect(jsonResponse).to.have.property('UPDATEDBY');\r",
+							"});\r",
+							"\r",
+							"pm.test(\"UPDATEDBY property is number\", () => {\r",
+							"\tpm.expect(jsonResponse.UPDATEDBY).to.be.a('number');\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Has STUDENTSTATUS property\", () => {\r",
+							"\tpm.expect(jsonResponse).to.have.property('STUDENTSTATUS');\r",
+							"});\r",
+							"\r",
+							"pm.test(\"STUDENTSTATUS property is number\", () => {\r",
+							"\tpm.expect(jsonResponse.UPDATEDBY).to.be.a('STUDENTSTATUS');\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Status code is 200\",  () => {\r",
+							"\tpm.response.to.have.status(200);\r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {},
+						"requests": {}
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{generated_token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:3000/GetStudentInfo/ST-0001",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"GetStudentInfo",
+						"ST-0001"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GetUserInfo",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var moment = require('moment');\r",
+							"\r",
+							"var jsonResponse = pm.response.json();\r",
+							"var rolesResponse = jsonResponse.roles;\r",
+							"\r",
+							"\r",
+							"pm.test(\"Response is JSON\", function () {\r",
+							"\t pm.response.to.be.json;\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Response has Body\", () => {\r",
+							"\tpm.response.to.be.withBody;\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Has userid property\", () => {\r",
+							"\tpm.expect(jsonResponse).to.have.property('userid');\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Has userid property is number\", () => {\r",
+							"\tpm.expect(jsonResponse.userid).to.be.a('number');\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Has username property\", () => {\r",
+							"\tpm.expect(jsonResponse).to.have.property('username');\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Has username property is string\", () => {\r",
+							"\tpm.expect(jsonResponse.username).to.be.a('string');\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Has createddatetime property\", () => {\r",
+							"\tpm.expect(jsonResponse).to.have.property('createddatetime');\r",
+							"});\r",
+							"\r",
+							"pm.test(\"createddatetime property is in Date Format\", () => {\r",
+							"\tpm.expect(moment(jsonResponse.createddatetime).isValid()).to.be.true;\r",
+							"\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Has userisactive property\", () => {\r",
+							"\tpm.expect(jsonResponse).to.have.property('userisactive');\r",
+							"});\r",
+							"\r",
+							"pm.test(\"userisactive property is number\", () => {\r",
+							"\tpm.expect(jsonResponse.userisactive).to.be.a('number');\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Has roles property\", () => {\r",
+							"\tpm.expect(jsonResponse).to.have.property('roles');\r",
+							"});\r",
+							"\r",
+							"pm.test(\"roles property is array\", () => {\r",
+							"\tpm.expect(jsonResponse.roles).to.be.a('array');\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Has rolename property\", () => {\r",
+							"\trolesResponse.forEach(function(role, index) {\r",
+							"        // Create a separate test for each element for clearer reporting\r",
+							"        pm.expect(role, `Role at index ${index}`).to.have.property('rolename');\r",
+							"    });\r",
+							"});\r",
+							"\r",
+							"pm.test(\"rolename property is string\", () => {\r",
+							"\trolesResponse.forEach(function(role, index) {\r",
+							"        // Create a separate test for each element for clearer reporting\r",
+							"        //pm.expect(role, `Role at index ${index}`).to.have.property('rolename');\r",
+							"\t\tpm.expect(role.rolename, `rolename at index ${index}`).to.be.a('string');\r",
+							"    });\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Has roledescription property\", () => {\r",
+							"\trolesResponse.forEach(function(role, index) {\r",
+							"        // Create a separate test for each element for clearer reporting\r",
+							"        pm.expect(role, `Role at index ${index}`).to.have.property('roledescription');\r",
+							"    });\r",
+							"});\r",
+							"\r",
+							"pm.test(\"roledescription property is string\", () => {\r",
+							"\t\trolesResponse.forEach(function(role, index) {\r",
+							"\t\tpm.expect(role.roledescription, `roledescription at index ${index}`).to.be.a('string');\r",
+							"    });\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Has roleisactive property\", () => {\r",
+							"\t\trolesResponse.forEach(function(role, index) {\r",
+							"        // Create a separate test for each element for clearer reporting\r",
+							"        pm.expect(role, `Role at index ${index}`).to.have.property('roleisactive');\r",
+							"    });\r",
+							"});\r",
+							"\r",
+							"pm.test(\"roleisactive property is number\", () => {\r",
+							"\trolesResponse.forEach(function(role, index) {\r",
+							"\t\tpm.expect(role.roleisactive, `roledescription at index ${index}`).to.be.a('number');\r",
+							"    });\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Status code is 200\",  () => {\r",
+							"\tpm.response.to.have.status(200);\r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {},
+						"requests": {}
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{generated_token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:3000/GetUserInfo/1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"GetUserInfo",
+						"1"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"requests": {},
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"requests": {},
+				"exec": [
+					""
+				]
+			}
+		}
+	]
+}
