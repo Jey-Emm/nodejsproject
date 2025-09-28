@@ -22,13 +22,21 @@ jobs:
       - name: Install Newman
         run: npm install -g newman
 
+      - name: Start Express.js API Server
+        # Use 'npm start' or the command that runs your API on port 3000
+        # The '&' is crucial: it runs the command in the background
+        run: npm start & 
+
+      - name: Wait for API to be fully ready
+        # Give the Express.js server 5-10 seconds to start listening on port 3000
+        run: sleep 10 
+
       - name: Run Postman Collection with Newman
         env:
           # This maps your GitHub Secret to an environment variable the job can use
           POSTMAN_USERNAME: ${{ secrets.POSTMAN_STUDENT_API_USERNAME}}
           POSTMAN_PASSWORD: ${{ secrets.POSTMAN_STUDENT_API_PASSWORD}}
         run: |
-          # Note: The 'env.POSTMAN_KEY' is now available inside the 'run' command.
           newman run express-js-api-basic/postman_test_collection/express-js-project-student-localhost.postman_collection.json \
           -e express-js-api-basic/postman_test_collection/Localhost.postman_environment.json \
           --env-var "username=$POSTMAN_USERNAME" \
