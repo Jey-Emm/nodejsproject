@@ -77,10 +77,7 @@
 					"listen": "prerequest",
 					"script": {
 						"exec": [
-							"\r",
-							"pm.test(\"Validate Username\", () => {\r",
-							"\t\r",
-							"});"
+							""
 						],
 						"type": "text/javascript",
 						"packages": {},
