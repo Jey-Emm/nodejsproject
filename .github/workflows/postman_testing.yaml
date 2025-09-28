@@ -23,14 +23,14 @@ jobs:
         # This uses the package.json in the project root to install modules (like express)
         run: npm install
 
-      - name: Start Express.js API Server
+      #- name: Start Express.js API Server
         # Use 'npm start' or the command that runs your API on port 3000
         # The '&' is crucial: it runs the command in the background
-        run: PORT=3000 node express-js-api-basic/index.js &  
+      #  run: PORT=3000 node express-js-api-basic/index.js &  
 
-      - name: Wait for API to be fully ready
+      #- name: Wait for API to be fully ready
         # Give the Express.js server 5-10 seconds to start listening on port 3000
-        run: sleep 10 
+      #  run: sleep 10 
 
       - name: Install Newman
         run: npm install -g newman

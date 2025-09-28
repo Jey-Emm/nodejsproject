@@ -101,12 +101,14 @@
 					}
 				},
 				"url": {
-					"raw": "http://localhost:3000/authenticate",
+					"raw": "http://13.239.249.176/authenticate",
 					"protocol": "http",
 					"host": [
-						"localhost"
+						"13",
+						"239",
+						"249",
+						"176"
 					],
-					"port": "3000",
 					"path": [
 						"authenticate"
 					]
@@ -280,12 +282,14 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "http://localhost:3000/GetStudentInfo/ST-0001",
+					"raw": "http://13.239.249.176/GetStudentInfo/ST-0001",
 					"protocol": "http",
 					"host": [
-						"localhost"
+						"13",
+						"239",
+						"249",
+						"176"
 					],
-					"port": "3000",
 					"path": [
 						"GetStudentInfo",
 						"ST-0001"
@@ -421,12 +425,14 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "http://localhost:3000/GetUserInfo/1",
+					"raw": "http://13.239.249.176/GetUserInfo/1",
 					"protocol": "http",
 					"host": [
-						"localhost"
+						"13",
+						"239",
+						"249",
+						"176"
 					],
-					"port": "3000",
 					"path": [
 						"GetUserInfo",
 						"1"
