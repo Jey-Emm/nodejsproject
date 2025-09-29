@@ -14,7 +14,7 @@ jobs:
           # This maps your GitHub Secret to an environment variable the job can use
           POSTMAN_USERNAME: ${{ secrets.POSTMAN_STUDENT_API_USERNAME}}
           POSTMAN_PASSWORD: ${{ secrets.POSTMAN_STUDENT_API_PASSWORD}}
-          
+
       steps:
       - name: Checkout Repository
         uses: actions/checkout@v4
@@ -24,6 +24,10 @@ jobs:
         with:
           node-version: '18'
 
+      - name: Diagnostic Check Print Environment Variables
+        run: |
+          echo "Checking POSTMAN_USERNAME: $POSTMAN_USERNAME"
+          echo "Checking POSTMAN_PASSWORD: $POSTMAN_PASSWORD"
       #- name: Install API Dependencies
         # This uses the package.json in the project root to install modules (like express)
        # run: npm install

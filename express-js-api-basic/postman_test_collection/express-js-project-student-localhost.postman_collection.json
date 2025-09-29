@@ -17,7 +17,7 @@
 							"\r",
 							"var jsonResponse = pm.response.json();\r",
 							"\r",
-							"pm.variables.set(\"generated_token\", jsonResponse.token);\r",
+							"pm.environment.set(\"generated_token\", jsonResponse.token);\r",
 							"\r",
 							"pm.test(\"Response is JSON\", function () {\r",
 							"\t pm.response.to.be.json;\r",
@@ -264,7 +264,7 @@
 					"listen": "prerequest",
 					"script": {
 						"exec": [
-							"pm.request.headers.add({ key: 'Authorization', value: 'Bearer {{generated_token}}' });"
+							"//pm.request.headers.add({ key: 'Authorization', value: 'Bearer {{generated_token}}' });"
 						],
 						"type": "text/javascript",
 						"packages": {},
@@ -414,7 +414,7 @@
 					"listen": "prerequest",
 					"script": {
 						"exec": [
-							"pm.request.headers.add({ key: 'Authorization', value: 'Bearer {{generated_token}}' });"
+							"//pm.request.headers.add({ key: 'Authorization', value: 'Bearer {{generated_token}}' });"
 						],
 						"type": "text/javascript",
 						"packages": {},
