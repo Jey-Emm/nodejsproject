@@ -9,11 +9,7 @@ on:
 jobs:
    start_testing:
       runs-on: ubuntu-latest
-      env:
-          # This maps your GitHub Secret to an environment variable the job can use
-          POSTMAN_USERNAME: ${{ secrets.POSTMAN_USERNAME }}
-          POSTMAN_PASSWORD: ${{ secrets.POSTMAN_PASSWORD }}
-
+     
       steps:
       - name: Checkout Repository
         uses: actions/checkout@v4
@@ -23,12 +19,6 @@ jobs:
         with:
           node-version: '18'
 
-      - name: Diagnostic Check Print Environment Variables
-        run: |
-          #echo "Checking POSTMAN_USERNAME: $POSTMAN_USERNAME"
-          #echo "Checking POSTMAN_PASSWORD: $POSTMAN_PASSWORD"
-          echo "Checking direct in secrets uname: ${{ secrets.POSTMAN_USERNAME }}"
-          echo "Checking direct in secrets pword: ${{ secrets.POSTMAN_PASSWORD }}"
       #- name: Install API Dependencies
         # This uses the package.json in the project root to install modules (like express)
        # run: npm install
@@ -46,10 +36,14 @@ jobs:
         run: npm install -g newman
 
       - name: Run Postman Collection with Newman
-        
+        env:
+          # This maps your GitHub Secret to an environment variable the job can use
+          AUTH_USER: ${{ secrets.POSTMAN_USERNAME }}
+          AUTH_PASS: ${{ secrets.POSTMAN_PASSWORD }}
+
         run: |
           newman run express-js-api-basic/postman_test_collection/express-js-project-student-localhost.postman_collection.json \
           -e express-js-api-basic/postman_test_collection/Localhost.postman_environment.json \
-          --env-var "username=\"$POSTMAN_USERNAME\"" \
-          --env-var "password=\"$POSTMAN_PASSWORD\""
+          --env-var "username=$AUTH_USER" \
+          --env-var "password=$AUTH_PASS"
 
