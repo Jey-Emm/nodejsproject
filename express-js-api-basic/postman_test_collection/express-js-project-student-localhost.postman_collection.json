@@ -17,7 +17,7 @@
 							"\r",
 							"var jsonResponse = pm.response.json();\r",
 							"\r",
-							"pm.environment.set(\"generated_token\", jsonResponse.token);\r",
+							"pm.variables.set(\"generated_token\", jsonResponse.token);\r",
 							"\r",
 							"pm.test(\"Response is JSON\", function () {\r",
 							"\t pm.response.to.be.json;\r",
@@ -259,6 +259,17 @@
 						"packages": {},
 						"requests": {}
 					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"pm.request.headers.add({ key: 'Authorization', value: 'Bearer {{generated_token}}' });"
+						],
+						"type": "text/javascript",
+						"packages": {},
+						"requests": {}
+					}
 				}
 			],
 			"request": {
@@ -393,6 +404,17 @@
 							"pm.test(\"Status code is 200\",  () => {\r",
 							"\tpm.response.to.have.status(200);\r",
 							"});"
+						],
+						"type": "text/javascript",
+						"packages": {},
+						"requests": {}
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"pm.request.headers.add({ key: 'Authorization', value: 'Bearer {{generated_token}}' });"
 						],
 						"type": "text/javascript",
 						"packages": {},
