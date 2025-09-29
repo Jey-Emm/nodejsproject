@@ -25,8 +25,8 @@ jobs:
 
       - name: Diagnostic Check Print Environment Variables
         run: |
-          #echo "Checking POSTMAN_USERNAME: \"$POSTMAN_USERNAME\""
-          #echo "Checking POSTMAN_PASSWORD: \"$POSTMAN_PASSWORD\""
+          #echo "Checking POSTMAN_USERNAME: $POSTMAN_USERNAME"
+          #echo "Checking POSTMAN_PASSWORD: $POSTMAN_PASSWORD"
           echo "Checking direct in secrets uname: ${{ secrets.POSTMAN_USERNAME }}"
           echo "Checking direct in secrets pword: ${{ secrets.POSTMAN_PASSWORD }}"
       #- name: Install API Dependencies
