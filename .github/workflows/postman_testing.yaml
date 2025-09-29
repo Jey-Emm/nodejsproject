@@ -12,8 +12,8 @@ jobs:
 
       env:
           # This maps your GitHub Secret to an environment variable the job can use
-          POSTMAN_USERNAME: ${{ secrets.POSTMAN_STUDENT_API_USERNAME }}
-          POSTMAN_PASSWORD: ${{ secrets.POSTMAN_STUDENT_API_PASSWORD }}
+          POSTMAN_USERNAME: ${{ secrets.POSTMAN_USERNAME }}
+          POSTMAN_PASSWORD: ${{ secrets.POSTMAN_PASSWORD }}
 
       steps:
       - name: Checkout Repository
