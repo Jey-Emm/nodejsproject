@@ -9,15 +9,3 @@ app.use(DBConnection);
 app.listen(3000, () => {
     console.log("Server is running on port 3000!");
 })
-
-
-//DBConnection();
-
-//const tk = GenerateToken();
-//console.log(tk);
-
-/*const pword = 'T#stthEon1'
-const encrypt_val = encrypt(pword);
-console.log(encrypt_val);
-const decrypt_val = decrypt(encrypt_val);
-console.log(decrypt_val);*/
